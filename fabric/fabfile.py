@@ -2,27 +2,99 @@ from fabric import *
 from invoke import *
 import re
 
+private_key_path = "/Users/levsion/.ssh/id_rsa.pub"
+git_path = "/Users/levsion/Documents/code/wangtuo"
+
 project_config = {
     'kuaiyong':{
         'hosts':['root@172.111.164.10:22'],
         'passwords':['123456'],
-        'private_keys':["/Users/levsion/.ssh/id_rsa.pub"]
+        'private_keys':[private_key_path]
     },
-    'gameweb':{
-        'hosts':['root@172.111.164.10:22','root@172.111.164.11:22','root@172.111.164.12:22'],
+    'jmweb':{
+        'hosts':['root@47.111.166.180:22022','root@47.111.168.155:22022','root@47.111.168.25:22022','root@47.111.166.185:22022'],
+        'passwords':['123456','123456','123456','123456'],
+        'private_keys':[private_key_path,private_key_path,private_key_path,private_key_path]
+    },
+    'jmh5':{
+        'hosts':['root@47.111.166.180:22022','root@47.111.168.155:22022','root@47.111.168.25:22022'],
         'passwords':['123456','123456','123456'],
-        'private_keys':["/home/myuser/.ssh/private.key","/home/myuser/.ssh/private.key","/home/myuser/.ssh/private.key"]
+        'private_keys':[private_key_path,private_key_path,private_key_path]
+    },
+    'jmadmin':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'jmpromote':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
     }
 }
 
 project_local_dir = {
     'kuaiyong':'/Users/levsion/Documents/code/git_php/git_levsion1/kuaiyong',
-    'gameweb':'/data/wwwroot/gameweb'
+    'jmweb':git_path + '/jmweb',
+    'jmh5':git_path + '/jmh5',
+    'jmadmin':git_path + '/jmadmin',
+    'jmpromote':git_path + '/jmpromote'
 }
 project_remote_dir = {
     'kuaiyong':'/mydata/app/kuaiyong',
-    'gameweb':'/data/wwwroot/gameweb'
+    'jmweb':'/data/wwwroot/jmweb',
+    'jmh5':'/data/wwwroot/jmh5',
+    'jmadmin':'/data/wwwroot/jmadmin',
+    'jmpromote':'/data/wwwroot/jmpromote'
 }
+
+'''
+Test server config
+'''
+project_config_test = {
+    'jmweb':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'jmh5':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'jmadmin':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'jmpromote':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    }
+}
+project_remote_dir_test = {
+    'jmweb':'/data/wwwroot/webgit/jmweb',
+    'jmh5':'/data/wwwroot/webgit/jmh5',
+    'jmadmin':'/data/wwwroot/webgit/jmadmin',
+    'jmpromote':'/data/wwwroot/webgit/jmpromote'
+}
+def web_conn_test(project):
+    conn_list = []
+    for k in range(len(project_config_test[project]['hosts'])):
+        #conn = Connection(project_config[project]['hosts'][k], connect_kwargs={"password": project_config[project]['passwords'][k]})
+        try:
+            conn = Connection(project_config_test[project]['hosts'][k], connect_kwargs={"key_filename": project_config_test[project]['private_keys'][k]})
+        except ValueError as e:
+            raise ValueError(e)
+        except Exception as e:
+            raise Exception(e)
+        except:
+            raise Exception("unknow error occur !!!")
+        conn_list.append(conn)
+    return conn_list
+
+
 
 @task()
 def hello(c,project):
@@ -34,7 +106,14 @@ def web_conn(project):
     conn_list = []
     for k in range(len(project_config[project]['hosts'])):
         #conn = Connection(project_config[project]['hosts'][k], connect_kwargs={"password": project_config[project]['passwords'][k]})
-        conn = Connection(project_config[project]['hosts'][k], connect_kwargs={"key_filename": project_config[project]['private_keys'][k]})
+        try:
+            conn = Connection(project_config[project]['hosts'][k], connect_kwargs={"key_filename": project_config[project]['private_keys'][k]})
+        except ValueError as e:
+            raise ValueError(e)
+        except Exception as e:
+            raise Exception(e)
+        except:
+            raise Exception("unknow error occur !!!")
         conn_list.append(conn)
     return conn_list
 
@@ -114,19 +193,50 @@ def del_tag(c,project,tag):
         c.run("git push origin :" + tag)
 
 @task
+def testing(c,project):
+    if not project_config_test.has_key(project):
+        print("Error: project " + project + " not exist")
+        quit()
+    try:
+        conn_list = web_conn_test(project)
+    except ValueError as e:
+        print("Error: project " + project + " connect error: "+e)
+        quit()
+    for conn in conn_list:
+        with conn.cd(project_remote_dir_test[project]):
+            host = conn.host
+            print("The host "+host+" testing begin : dev")
+            try:
+                conn.run("git checkout dev")
+                conn.run("git pull ")
+            except Exception as e:
+                print 'Error: ',e
+                quit()
+            print("The host "+host+" testing success !!!")
+    print("All hosts testing success !!!")
+
+@task
 def deploy(c,project):
     if not project_config.has_key(project):
         print("Error: project " + project + " not exist")
         quit()
     tag_list = get_tag_list(c,project)
     tag =  tag_list[-1]
-    conn_list = web_conn(project)
+    try:
+        conn_list = web_conn(project)
+    except ValueError as e:
+        print("Error: project " + project + " connect error: "+e)
+        quit()
     for conn in conn_list:
         with conn.cd(project_remote_dir[project]):
             host = conn.host
             print("The host "+host+" deploy begin tag: "+tag)
-            conn.run("git fetch origin tag "+tag)
-            conn.run("git checkout "+ tag)
+            try:
+                conn.run("git fetch origin tag "+tag)
+                conn.run("git checkout "+ tag)
+            except Exception as e:
+                print 'Error: ',e
+                quit()
             print("The host "+host+" deploy success !!!")
     print("All hosts deploy success !!!")
 
@@ -138,12 +248,20 @@ def rollback(c,project):
     tag_list = get_tag_list(c,project)
     tag = tag_list[-2]
     del_tag = tag_list[-1]
-    conn_list = web_conn(project)
+    try:
+        conn_list = web_conn(project)
+    except ValueError as e:
+        print("Error: project " + project + " connect error: " + e)
+        quit()
     for conn in conn_list:
         with conn.cd(project_remote_dir[project]):
             print("Begin rollback, checkout " + tag)
-            conn.run("git pull",hide=True,warn=True)
-            conn.run("git checkout " + tag)
+            try:
+                conn.run("git pull",hide=True,warn=True)
+                conn.run("git checkout " + tag)
+            except Exception as e:
+                print 'Error: ',e
+                quit()
             print("checkout end")
     with c.cd(project_local_dir[project]):
         c.run("git tag -d "+del_tag)
