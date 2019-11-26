@@ -30,6 +30,31 @@ project_config = {
         'hosts':['root@47.111.166.185:22022'],
         'passwords':['123456'],
         'private_keys':[private_key_path]
+    },
+    'gpublish':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'publishadmin':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'gm_h5_web':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'gmapi':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'gmadmin':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
     }
 }
 
@@ -38,15 +63,27 @@ project_local_dir = {
     'jmweb':git_path + '/jmweb',
     'jmh5':git_path + '/jmh5',
     'jmadmin':git_path + '/jmadmin',
-    'jmpromote':git_path + '/jmpromote'
+    'jmpromote':git_path + '/jmpromote',
+    'gpublish':git_path + '/gpublish',
+    'publishadmin':git_path + '/publishadmin',
+    'gm_h5_web':git_path + '/gm_h5_web',
+    'gmapi':git_path + '/gmapi',
+    'gmadmin':git_path + '/gmadmin',
 }
 project_remote_dir = {
     'kuaiyong':'/mydata/app/kuaiyong',
     'jmweb':'/data/wwwroot/jmweb',
     'jmh5':'/data/wwwroot/jmh5',
     'jmadmin':'/data/wwwroot/jmadmin',
-    'jmpromote':'/data/wwwroot/jmpromote'
+    'jmpromote':'/data/wwwroot/jmpromote',
+    'gpublish':'/data/wwwroot/gpublish',
+    'publishadmin':'/data/wwwroot/publishadmin',
+    'gm_h5_web':'/data/wwwroot/gm_h5_web',
+    'gmapi':'/data/wwwroot/gmapi',
+    'gmadmin':'/data/wwwroot/gmadmin'
 }
+
+
 
 '''
 Test server config
@@ -67,7 +104,72 @@ project_config_test = {
         'passwords':['123456'],
         'private_keys':[private_key_path]
     },
+    'jmadmin_h5':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
     'jmpromote':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'jmpromote_h5':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'gpublish':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'publishadmin':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'gm_h5_web':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'gmapi':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'gmadmin':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'kwweb':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'kwweb_h5':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'kwadmin':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'kwadmin_h5':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'kwpromote':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'kwpromote_h5':{
         'hosts':['root@47.111.164.172:22'],
         'passwords':['123456'],
         'private_keys':[private_key_path]
@@ -77,8 +179,39 @@ project_remote_dir_test = {
     'jmweb':'/data/wwwroot/webgit/jmweb',
     'jmh5':'/data/wwwroot/webgit/jmh5',
     'jmadmin':'/data/wwwroot/webgit/jmadmin',
-    'jmpromote':'/data/wwwroot/webgit/jmpromote'
+    'jmadmin_h5':'/data/wwwroot/webgit/jmadmin_h5',
+    'jmpromote':'/data/wwwroot/webgit/jmpromote',
+    'jmpromote_h5':'/data/wwwroot/webgit/jmpromote_h5',
+    'gpublish':'/data/wwwroot/webgit/gpublish',
+    'publishadmin':'/data/wwwroot/webgit/publishadmin',
+    'gm_h5_web':'/data/wwwroot/webgit/gm_h5_web',
+    'gmapi':'/data/wwwroot/webgit/gmapi',
+    'gmadmin':'/data/wwwroot/webgit/gmadmin',
+    'kwweb':'/data/wwwroot/webgit/kwweb',
+    'kwweb_h5':'/data/wwwroot/webgit/kw_h5web',
+    'kwadmin':'/data/wwwroot/webgit/kwadmin',
+    'kwadmin_h5':'/data/wwwroot/webgit/kw_admin_web',
+    'kwpromote':'/data/wwwroot/webgit/kwpromote',
+    'kwpromote_h5':'/data/wwwroot/webgit/kw_mailiang_web'
 }
+project_test_branch_test = {
+    'jmweb':'dev',
+    'jmh5':'dev',
+    'jmadmin':'dev',
+    'jmpromote':'dev',
+    'gpublish':'dev',
+    'publishadmin':'master',
+    'gm_h5_web':'master',
+    'gmapi':'dev',
+    'gmadmin':'dev',
+    'kwweb':'dev',
+    'kwweb_h5':'master',
+    'kwadmin':'master',
+    'kwadmin_h5':'master',
+    'kwpromote':'master',
+    'kwpromote_h5':'master'
+}
+
 def web_conn_test(project):
     conn_list = []
     for k in range(len(project_config_test[project]['hosts'])):
@@ -202,12 +335,15 @@ def testing(c,project):
     except ValueError as e:
         print("Error: project " + project + " connect error: "+e)
         quit()
+    branch_name = 'dev'
+    if project_test_branch_test.has_key(project):
+        branch_name = project_test_branch_test[project]
     for conn in conn_list:
         with conn.cd(project_remote_dir_test[project]):
             host = conn.host
-            print("The host "+host+" testing begin : dev")
+            print("The host "+host+" testing begin : "+branch_name)
             try:
-                conn.run("git checkout dev")
+                conn.run("git checkout "+branch_name)
                 conn.run("git pull ")
             except Exception as e:
                 print 'Error: ',e
