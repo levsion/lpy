@@ -7,16 +7,17 @@ import sys,os
 import time
 import signal
 import logging,string
+import importlib
 
-reload(sys)  
-sys.setdefaultencoding('utf-8')
+importlib.reload(sys)
+
 g_server_host = ''
 if len(sys.argv)<2:
-    print "no port input, quit..."
+    print("no port input, quit...")
     quit()
 g_server_port = sys.argv[1]
 if(not g_server_port or not (str(g_server_port).isdigit())):
-    print "input wrong port, quit..."
+    print("input wrong port, quit...")
     quit()
 else:
 	g_server_port = int(g_server_port)
@@ -54,7 +55,7 @@ class LogServer(object):
 		self.socket = None
 		signal.signal(signal.SIGPIPE,PipeHandle)
 	def start(self):  
-		print 'LogServer Start!'
+		print('LogServer Start!')
 		global g_server_host
 		global g_server_port
 		global g_server_log_path

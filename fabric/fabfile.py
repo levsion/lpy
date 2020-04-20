@@ -55,7 +55,18 @@ project_config = {
         'hosts':['root@47.111.166.185:22022'],
         'passwords':['123456'],
         'private_keys':[private_key_path]
+    },
+    'ftadmin':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'ftadmin_h5':{
+        'hosts':['root@47.111.166.185:22022'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
     }
+
 }
 
 project_local_dir = {
@@ -69,6 +80,8 @@ project_local_dir = {
     'gm_h5_web':git_path + '/gm_h5_web',
     'gmapi':git_path + '/gmapi',
     'gmadmin':git_path + '/gmadmin',
+    'ftadmin':git_path + '/ftadmin',
+    'ftadmin_h5':git_path + '/ftadmin_h5'
 }
 project_remote_dir = {
     'kuaiyong':'/mydata/app/kuaiyong',
@@ -80,7 +93,9 @@ project_remote_dir = {
     'publishadmin':'/data/wwwroot/publishadmin',
     'gm_h5_web':'/data/wwwroot/gm_h5_web',
     'gmapi':'/data/wwwroot/gmapi',
-    'gmadmin':'/data/wwwroot/gmadmin'
+    'gmadmin':'/data/wwwroot/gmadmin',
+    'ftadmin':'/data/wwwroot/ftadmin',
+    'ftadmin_h5':'/data/wwwroot/ftadmin_h5'
 }
 
 
@@ -173,11 +188,21 @@ project_config_test = {
         'hosts':['root@47.111.164.172:22'],
         'passwords':['123456'],
         'private_keys':[private_key_path]
+    },
+    'ftadmin':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
+    },
+    'ftadmin_h5':{
+        'hosts':['root@47.111.164.172:22'],
+        'passwords':['123456'],
+        'private_keys':[private_key_path]
     }
 }
 project_remote_dir_test = {
     'jmweb':'/data/wwwroot/webgit/jmweb',
-    'jmh5':'/data/wwwroot/webgit/jmh5',
+    'jmh5':'/data/wwwroot/webgit/jm_h5',
     'jmadmin':'/data/wwwroot/webgit/jmadmin',
     'jmadmin_h5':'/data/wwwroot/webgit/jmadmin_h5',
     'jmpromote':'/data/wwwroot/webgit/jmpromote',
@@ -192,24 +217,30 @@ project_remote_dir_test = {
     'kwadmin':'/data/wwwroot/webgit/kwadmin',
     'kwadmin_h5':'/data/wwwroot/webgit/kw_admin_web',
     'kwpromote':'/data/wwwroot/webgit/kwpromote',
-    'kwpromote_h5':'/data/wwwroot/webgit/kw_mailiang_web'
+    'kwpromote_h5':'/data/wwwroot/webgit/kw_mailiang_web',
+    'ftadmin':'/data/wwwroot/webgit/ftadmin',
+    'ftadmin_h5':'/data/wwwroot/webgit/ftadmin_h5'
 }
 project_test_branch_test = {
     'jmweb':'dev',
-    'jmh5':'dev',
+    'jmh5':'master',
     'jmadmin':'dev',
+    'jmadmin_h5':'master',
     'jmpromote':'dev',
+    'jmpromote_h5':'master',
     'gpublish':'dev',
-    'publishadmin':'master',
+    'publishadmin':'dev',
     'gm_h5_web':'master',
     'gmapi':'dev',
     'gmadmin':'dev',
     'kwweb':'dev',
     'kwweb_h5':'master',
-    'kwadmin':'master',
+    'kwadmin':'dev',
     'kwadmin_h5':'master',
-    'kwpromote':'master',
-    'kwpromote_h5':'master'
+    'kwpromote':'dev',
+    'kwpromote_h5':'master',
+    'ftadmin':'dev',
+    'ftadmin_h5':'master'
 }
 
 def web_conn_test(project):
@@ -281,6 +312,8 @@ def get_tag_info(c,tag,project):
 
 @task
 def go_tag_list(c,project):
+    print("Error: The service is temporarily unavailable")
+    quit()
     if not project_config.has_key(project):
         print("Error: project "+project+" not exist")
         quit()
