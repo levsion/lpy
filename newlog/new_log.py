@@ -67,7 +67,7 @@ class LogServer(object):
 			if not data:
 				#time.sleep(0.05)
 				continue
-			data_list = data.split(']')
+			data_list = data.decode().split(']')
 			channel = data_list[0].lstrip('[')
 			channel_dir = g_server_log_path+'/'+channel
 			if not os.path.exists(channel_dir):

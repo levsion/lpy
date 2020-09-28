@@ -322,7 +322,7 @@ def go_tag_list(c,project):
         tag_str = c.run("git tag", hide=True, warn=True)
         if tag_str:
             tag_str = tag_str.stdout.strip()
-            print tag_str
+            print(tag_str)
 
 @task
 def create_tag(c,project,tag):
@@ -379,7 +379,7 @@ def testing(c,project):
                 conn.run("git checkout "+branch_name)
                 conn.run("git pull ")
             except Exception as e:
-                print 'Error: ',e
+                print('Error: ',e)
                 quit()
             print("The host "+host+" testing success !!!")
     print("All hosts testing success !!!")
@@ -404,7 +404,7 @@ def deploy(c,project):
                 conn.run("git fetch origin tag "+tag)
                 conn.run("git checkout "+ tag)
             except Exception as e:
-                print 'Error: ',e
+                print ('Error: ',e)
                 quit()
             print("The host "+host+" deploy success !!!")
     print("All hosts deploy success !!!")
@@ -429,7 +429,7 @@ def rollback(c,project):
                 conn.run("git pull",hide=True,warn=True)
                 conn.run("git checkout " + tag)
             except Exception as e:
-                print 'Error: ',e
+                print ('Error: ',e)
                 quit()
             print("checkout end")
     with c.cd(project_local_dir[project]):
