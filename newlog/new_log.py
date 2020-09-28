@@ -63,11 +63,12 @@ class LogServer(object):
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  
 		self.socket.bind((g_server_host,g_server_port))
 		while True:
-			data, address = self.socket.recvfrom(2500)
-			if not data:
+			data_byte, address = self.socket.recvfrom(2500)
+			if not data_byte:
 				#time.sleep(0.05)
 				continue
-			data_list = data.decode().split(']')
+			data = data_byte.decode()
+			data_list = data.split(']')
 			channel = data_list[0].lstrip('[')
 			channel_dir = g_server_log_path+'/'+channel
 			if not os.path.exists(channel_dir):
